@@ -1,0 +1,64 @@
+body {
+  font-family: sans-serif; }
+
+body::after {
+  content: "";
+  background: url("../images/sea.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  font-family: 'Pacifico', cursive; }
+
+h1, h3 {
+  padding: 1rem;
+  background-color: rgba(238, 238, 238, 0.3);
+  font-family: 'Pacifico', cursive;
+  color: #2a2727; }
+
+.scene {
+  width: 200px;
+  height: 190px;
+  border: 1px solid transparent;
+  margin-top: 1rem;
+  perspective: 600px; }
+
+.card {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative; }
+
+.card.is-flipped {
+  transform: rotateY(180deg); }
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; }
+
+.card__face--back {
+  background: blue;
+  object-fit: cover;
+  transform: rotateY(180deg); }
+
+.keyCodeDisplay {
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem;
+  color: rgba(66, 62, 62, 0.83);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+/*# sourceMappingURL=style.css.map */

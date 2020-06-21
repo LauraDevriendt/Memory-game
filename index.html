@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- Google font -->
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+        <!-- customise css -->
+        <link rel="stylesheet" href="resources/css/style.css">
+        <title>Memory</title>
+</head>
+<body>
+    <main>
+        <section id="stats">
+            <h1 class="my-5 text-center">Let's play holiday memory</h1>
+            <section id="scores" class="container justify-content-around">
+                <div class="row mb-3 d-flex justify-content-around">
+                    <h3 id="numberOfPairs" class="mr-1" data-pairs="0">Pairs found: 0</h3>
+                    <h3 id="numberOfRounds" data-rounds="0">Rounds needed: 0</h3>
+                </div>
+
+            </section>
+        </section>
+        <section id="memoryGame" class="container">
+            <div class="row">
+                <div class="col-4 scene scene--card">
+                    <div class="card">
+                        <img class="card__face card__face--front" src="resources/images/memory-bg.jpg" alt="img">
+                        <div class="keyCodeDisplay">1</div>
+                        <img class="card__face card__face--back backside"  src="resources/images/holiday1.jpg" alt="bg">
+                    </div>
+                </div>
+                <div class="col-4 scene scene--card">
+                    <div class="card">
+                        <img class="card__face card__face--front" src="resources/images/memory-bg.jpg" alt="img">
+                        <div class="keyCodeDisplay">2</div>
+                        <img class="card__face card__face--back backside"  src="resources/images/holiday1.jpg" alt="bg">
+                    </div>
+                </div>
+                <div class="col-4 scene scene--card">
+                    <div class="card">
+                        <img class="card__face card__face--front" src="resources/images/memory-bg.jpg" alt="img">
+                        <div class="keyCodeDisplay">3</div>
+                        <img class="card__face card__face--back backside"  src="resources/images/holiday1.jpg" alt="bg">
+                    </div>
+                </div>
+                <div class="col-4 scene scene--card">
+                    <div class="card">
+                        <img class="card__face card__face--front" src="resources/images/memory-bg.jpg" alt="img">
+                        <div class="keyCodeDisplay">4</div>
+                        <img class="card__face card__face--back backside"  src="resources/images/holiday1.jpg" alt="bg">
+                    </div>
+                </div>
+                <div class="col-4 scene scene--card">
+                    <div class="card">
+                        <img class="card__face card__face--front" src="resources/images/memory-bg.jpg" alt="img">
+                        <div class="keyCodeDisplay">5</div>
+                        <img class="card__face card__face--back backside"  src="resources/images/holiday1.jpg" alt="bg">
+                    </div>
+                </div>
+                <div class="col-4 scene scene--card">
+                    <div class="card">
+                        <img class="card__face card__face--front" src="resources/images/memory-bg.jpg" alt="img">
+                        <div class="keyCodeDisplay">6</div>
+                        <img class="card__face card__face--back backside"  src="resources/images/holiday1.jpg" alt="bg">
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <section id="modals" class="d-flex mb-5">
+            <section id="TryAgainGameOver" class="container">
+                <!-- Button trigger modal -->
+                <button id="modalbtn" type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#ModalGameOver">
+                    Want to start over?
+                </button>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="ModalGameOver" tabindex="-1" role="dialog" aria-labelledby="ModalGameOver" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Game Over</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="ModalBody" class="modal-body">
+                                Game Over, you've lost
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="playAgainBtn" type="button" class="btn btn-success">Play again</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="rules">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-info mt-3 mr-5" data-toggle="modal" data-target="#explanation">
+                Rules
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="explanation" tabindex="-1" role="dialog" aria-labelledby="explanationLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="explanationLabel">Rules</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body alert-warning">
+                            You have a bunch of cards. Each card contains an image. Of each image there are exactly <strong>two cards</strong>. The cards are placed in a random order. You get to turn them around. If you turned around two cards with the same image, you have a <strong>pair</strong> and your pair wil stay visible. If they don't match, the cards will turn back around. Find all the <strong>pairs</strong> so fast as possible!
+
+                            Must-have features
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </section>
+
+
+
+
+
+    </main>
+     <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- customised js -->
+        <script src="resources/js/script.js"></script>
+</body>
+</html>
