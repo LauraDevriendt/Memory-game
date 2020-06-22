@@ -10,6 +10,7 @@ let imgSources = [
 ];
 let cards = document.querySelectorAll('.card');
 let imgSrcCompare= [];
+let ids=[];
 let rounds = parseInt(document.getElementById('numberOfRounds').dataset.rounds)
 let pairs = parseInt(document.getElementById('numberOfPairs').dataset.pairs)
 /* shuffle cards on load */
@@ -39,17 +40,22 @@ backsides.forEach(backside=>{
     i++
 })
 cards.forEach(card=> {
-    card.addEventListener('click', function game() {
+    card.addEventListener('click', function game(e) {
+
         card.classList.add('is-flipped')
         if (card.classList.contains('is-flipped')) {
+           let id = card.id;
+           ids.push(id)
             let img = card.children[2]
             let imgSrc = img.getAttribute('src');
             imgSrcCompare.push(imgSrc)
             let set = getOccurrence(imgSrcCompare, imgSrc)
-            if(imgSrcCompare.length==2 && set==1){
+            let sameCard = getOccurrence(ids, id)
+            if(imgSrcCompare.length>=2 && set===1 && sameCard==1){
                 rounds++
                 document.getElementById('numberOfRounds').innerHTML=`Rounds needed: ${rounds}`
                 imgSrcCompare=[];
+                ids=[];
                 let flippedCards = Array.from(document.getElementsByClassName('is-flipped'));
                 flippedCards.forEach(flippedCard=>{
                     if(flippedCard.classList.contains('pair')==false)
@@ -58,12 +64,13 @@ cards.forEach(card=> {
                         },1000);
                 });
             }
-            if(imgSrcCompare.length==2 && set==2){
+            if(imgSrcCompare.length>=2 && set==2 && sameCard==1){
                 rounds++
                 pairs++
                 document.getElementById('numberOfRounds').innerHTML=`Rounds needed: ${rounds}`
                 document.getElementById('numberOfPairs').innerHTML=`Pairs found: ${pairs}`
                 imgSrcCompare=[];
+                ids=[];
                 let flippedCards = Array.from(document.getElementsByClassName('is-flipped'));
                 flippedCards.forEach(flippedCard=>{
                     flippedCard.classList.add('pair')
