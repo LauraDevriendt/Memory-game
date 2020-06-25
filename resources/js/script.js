@@ -1,4 +1,5 @@
 
+
 function memory() {
     let imgSources = [
         "./resources/images/holiday1.jpg",
@@ -11,13 +12,16 @@ function memory() {
     let cards = document.querySelectorAll('.card');
     let imgSrcCompare = [];
     let ids = [];
+    let isProcessing=false;
     let rounds = parseInt(document.getElementById('numberOfRounds').dataset.rounds)
     let pairs = parseInt(document.getElementById('numberOfPairs').dataset.pairs)
     let turnedCards = []
     /* shuffle cards on load */
     shuffleMemoryImages()
+
     function shuffleMemoryImages() {
     }
+
     /* Fisher yates shuffle */
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) { // loop from back to front
@@ -32,6 +36,7 @@ function memory() {
         }
         return array
     }
+
     /* flipping cards */
     let randomSources = shuffle(imgSources);
     let backsides = Array.from(document.querySelectorAll('.backside'))
@@ -42,63 +47,69 @@ function memory() {
     })
     cards.forEach(card => {
         card.addEventListener('click', function game(e) {
-            card.classList.add('is-flipped')
-            if (card.classList.contains('is-flipped')) {
-                let id = card.id;
-                ids.push(id)
-                let img = card.children[2]
-                let imgSrc = img.getAttribute('src');
-                imgSrcCompare.push(imgSrc)
-                let set = getOccurrence(imgSrcCompare, imgSrc)
-                let sameCard = getOccurrence(ids, id)
-                if (imgSrcCompare.length >= 2 && set === 1 && sameCard == 1) {
-                    rounds++
-                    document.getElementById('numberOfRounds').innerHTML = `Rounds needed: ${rounds}`
-                    imgSrcCompare = [];
-                    ids = [];
-                    let flippedCards = Array.from(document.getElementsByClassName('is-flipped'));
-                    flippedCards.forEach(flippedCard => {
-                        if (flippedCard.classList.contains('pair') == false)
-                            setTimeout(function () {
-                                flippedCard.classList.remove('is-flipped')
-                            }, 1000);
-                    });
+                if (isProcessing) { return; }
+                card.classList.add('is-flipped')
+                if (card.classList.contains('is-flipped')) {
+                    let id = card.id;
+                    ids.push(id)
+                    let img = card.children[2]
+                    let imgSrc = img.getAttribute('src');
+                    imgSrcCompare.push(imgSrc)
+                    let set = getOccurrence(imgSrcCompare, imgSrc)
+                    let sameCard = getOccurrence(ids, id)
+                    if (imgSrcCompare.length >= 2 && set === 1 && sameCard == 1) {
+                        rounds++
+                        document.getElementById('numberOfRounds').innerHTML = `Rounds needed: ${rounds}`
+                        imgSrcCompare = [];
+                        ids = [];
+                        let flippedCards = Array.from(document.getElementsByClassName('is-flipped'));
+                        flippedCards.forEach(flippedCard => {
+                            if (flippedCard.classList.contains('pair') == false){
+                                isProcessing = true; //
+                                setTimeout(function () {
+                                    flippedCard.classList.remove('is-flipped')
+                                    isProcessing = false; //
+                                }, 1000);}
+                        });
+                    }
+                    if (imgSrcCompare.length >= 2 && set == 2 && sameCard == 1) {
+                        rounds++
+                        pairs++
+                        document.getElementById('numberOfRounds').innerHTML = `Rounds needed: ${rounds}`
+                        document.getElementById('numberOfPairs').innerHTML = `Pairs found: ${pairs}`
+                        imgSrcCompare = [];
+                        ids = [];
+                        let flippedCards = Array.from(document.getElementsByClassName('is-flipped'));
+                        flippedCards.forEach(flippedCard => {
+                            flippedCard.classList.add('pair')
+                        });
+                    }
                 }
-                if (imgSrcCompare.length >= 2 && set == 2 && sameCard == 1) {
-                    rounds++
-                    pairs++
-                    document.getElementById('numberOfRounds').innerHTML = `Rounds needed: ${rounds}`
-                    document.getElementById('numberOfPairs').innerHTML = `Pairs found: ${pairs}`
-                    imgSrcCompare = [];
-                    ids = [];
-                    let flippedCards = Array.from(document.getElementsByClassName('is-flipped'));
-                    flippedCards.forEach(flippedCard => {
-                        flippedCard.classList.add('pair')
-                    });
+                if (pairs == (imgSources.length / 2)) {
+                    let modalBody = document.getElementById('ModalBody')
+                    if (rounds == (imgSources.length / 2)) {
+                        modalBody.innerHTML = `You found them as fast as possible! CONGRATULATIONS! <br> Want to play again?`
+                    } else {
+                        modalBody.innerHTML = `You found all pairs and needed ${rounds} rounds! <br> You want to try to find them faster?`
+                    }
+                    document.getElementById('modalbtn').click();
+                    document.getElementById('playAgainBtn').addEventListener('click', function () {
+                        location.reload();
+                    })
                 }
-            }
-            if (pairs == (imgSources.length / 2)) {
-                let modalBody = document.getElementById('ModalBody')
-                if (rounds == (imgSources.length / 2)) {
-                    modalBody.innerHTML = `You found them as fast as possible! CONGRATULATIONS! <br> Want to play again?`
-                } else {
-                    modalBody.innerHTML = `You found all pairs and needed ${rounds} rounds! <br> You want to try to find them faster?`
-                }
-                document.getElementById('modalbtn').click();
-                document.getElementById('playAgainBtn').addEventListener('click', function () {
-                    location.reload();
-                })
-            }
+
         });
     });
     document.getElementById('playAgainBtn').addEventListener('click', function () {
         location.reload();
     })
+
     function getOccurrence(array, value) {
         let count = 0;
         array.forEach((v) => (v === value && count++));
         return count;
     }
+
     document.addEventListener('keypress', function (e) {
         switch (e.keyCode) {
             case 49:
@@ -121,5 +132,8 @@ function memory() {
                 break;
         }
     });
+
 }
+
+
 memory()
